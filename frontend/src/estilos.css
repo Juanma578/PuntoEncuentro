@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+:root { font-family: "DM Sans", sans-serif; color: #f4f7ee; background: #10231d; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, input, select { font: inherit; }
+.pagina { min-height: 100vh; overflow: hidden; background: #10231d; }
+.navegacion { height: 78px; max-width: 1180px; margin: auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; }
+.marca { color: #fff; text-decoration: none; display: flex; gap: 10px; align-items: center; font: 600 21px "Space Grotesk"; letter-spacing: -.6px; }
+.marca b { color: #d4e849; }
+.marca-icono { color: #d4e849; font-size: 27px; transform: rotate(45deg); }
+.estado-conexion { color: #b4c1b6; font-size: 13px; }
+.estado-conexion i { display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: #9ed149; box-shadow: 0 0 0 4px #9ed14922; }
+.selector-vista { display: flex; gap: 4px; margin-left: auto; }
+.selector-vista button { border: 1px solid #527466; border-radius: 8px; padding: 8px 11px; color: #b4c1b6; background: transparent; cursor: pointer; font-size: 12px; }
+.selector-vista button.activo { color: #172b20; background: #d4e849; border-color: #d4e849; }
+.selector-vista button.boton-sesion { color: #e8b4a8; border-color: #8b5b51; }
+.selector-vista button.boton-sesion:hover { color: #fff; border-color: #c87c6a; }
+.hero { max-width: 1180px; min-height: 390px; margin: auto; padding: 65px 32px 42px; display: flex; position: relative; }
+.hero-contenido { max-width: 650px; z-index: 1; }
+.etiqueta-seccion { color: #b8c83f; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 700; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { margin: 17px 0; font: 700 clamp(48px, 7vw, 84px)/.95 "Space Grotesk"; letter-spacing: -5px; }
+h1 em { color: #d4e849; font-style: normal; }
+.hero p { max-width: 430px; color: #b4c1b6; line-height: 1.6; font-size: 16px; }
+.estadisticas { display: flex; gap: 38px; margin-top: 37px; }
+.estadisticas div { display: flex; flex-direction: column; gap: 4px; }
+.estadisticas strong { color: #d4e849; font: 600 23px "Space Grotesk"; }
+.estadisticas span { color: #8e9f91; font-size: 11px; }
+.forma-decorativa { position: absolute; right: 1%; top: 24px; width: 370px; height: 370px; border-radius: 50%; background: #1a3d30; opacity: .9; }
+.forma-decorativa:after { content: ""; position: absolute; inset: 34px; border: 1px solid #aac33c55; border-radius: 50%; }
+.forma-decorativa span { position: absolute; right: 86px; top: 100px; color: #d4e849; font-size: 120px; transform: rotate(-18deg); opacity: .9; }
+.contenido { max-width: 1180px; margin: auto; padding: 0 32px 70px; display: grid; grid-template-columns: minmax(280px, 480px) 1fr; gap: 90px; position: relative; z-index: 2; }
+.formulario-reserva, .tarjeta-reserva, .estado-vacio { border-radius: 20px; background: #f6f8f1; color: #182e24; padding: 31px; box-shadow: 0 20px 55px #07120e33; }
+.encabezado-seccion h2 { margin: 10px 0 7px; font: 600 27px "Space Grotesk"; letter-spacing: -1px; }
+.encabezado-seccion p { color: #708078; font-size: 13px; line-height: 1.5; margin-bottom: 25px; }
+label { display: flex; flex-direction: column; gap: 8px; color: #516058; font-size: 12px; font-weight: 700; margin-top: 17px; }
+.ayuda-horario { margin: 8px 0 0; color: #78847c; font-size: 11px; }
+input, select { width: 100%; border: 1px solid #dce4d9; border-radius: 9px; padding: 13px 14px; outline: none; color: #21382d; background: #fff; }
+input:focus, select:focus { border-color: #a9bb31; box-shadow: 0 0 0 3px #d4e84933; }
+.fila-formulario { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.boton-principal { width: 100%; margin-top: 25px; padding: 15px; border: 0; border-radius: 10px; cursor: pointer; color: #172b20; background: #d4e849; font-weight: 700; display: flex; justify-content: center; gap: 14px; }
+.boton-principal:hover { background: #c4d83b; }
+.boton-principal:disabled { opacity: .6; cursor: wait; }
+.columna-resultado { min-width: 0; padding-top: 20px; }
+.tarjeta-reserva { background: #f6f8f1; }
+.cabecera-tarjeta { display: flex; justify-content: space-between; gap: 20px; border-bottom: 1px solid #dce4d9; padding-bottom: 20px; }
+.cabecera-tarjeta h3 { margin: 8px 0 0; font: 600 24px "Space Grotesk"; }
+.estado { align-self: start; padding: 6px 10px; border-radius: 20px; color: #52771e; background: #d9edb3; font-size: 11px; font-weight: 700; }
+.detalle-reserva { display: grid; gap: 15px; padding: 22px 0; }
+.detalle-reserva div, .resumen-pago div { display: flex; flex-direction: column; gap: 4px; }
+.detalle-reserva span, .resumen-pago span { color: #78847c; font-size: 11px; }
+.detalle-reserva strong { font-size: 14px; font-weight: 600; }
+.resumen-pago { border-top: 1px solid #dce4d9; padding-top: 20px; display: flex; justify-content: space-between; }
+.resumen-pago strong { font: 600 18px "Space Grotesk"; }
+.precio-destacado { color: #73901e; }
+.boton-secundario { margin-top: 26px; border: 0; padding: 0; cursor: pointer; background: none; color: #a35454; font-size: 12px; font-weight: 700; }
+.identificador { display: block; margin-top: 18px; color: #a3ada5; font-size: 10px; word-break: break-all; }
+.estado-vacio { min-height: 300px; display: grid; place-content: center; text-align: center; background: #173128; color: #f4f7ee; border: 1px dashed #527466; box-shadow: none; }
+.pelota { display: block; margin-bottom: 16px; font-size: 44px; filter: grayscale(1); opacity: .75; }
+.estado-vacio h2 { margin-bottom: 8px; font: 600 23px "Space Grotesk"; }
+.estado-vacio p { color: #a9b9ad; font-size: 13px; }
+.alerta { margin-bottom: 15px; padding: 13px 16px; border-radius: 9px; font-size: 13px; }
+.alerta-error { color: #8c3939; background: #ffe1df; }
+.alerta-exito { color: #446d24; background: #ddf1c2; }
+.panel-dueno { max-width: 760px; margin: 25px auto 70px; padding: 31px; border-radius: 20px; background: #f6f8f1; color: #182e24; }
+.panel-acceso { max-width: 500px; }
+.formulario-acceso { margin-top: 22px; }
+.cabecera-panel { display: flex; justify-content: space-between; align-items: start; gap: 20px; }
+.enlace-modo { border: 0; padding: 0; color: #5d7d21; background: transparent; cursor: pointer; font-size: 12px; font-weight: 700; }
+.registro-cancha { display: flex; gap: 10px; margin: 25px 0; }
+.registro-cancha .boton-principal { width: auto; margin: 0; white-space: nowrap; }
+.lista-reservas { border-top: 1px solid #dce4d9; padding-top: 20px; }
+.lista-reservas h3 { font: 600 20px "Space Grotesk"; }
+.fila-reserva { display: grid; grid-template-columns: 1fr auto auto; gap: 14px; align-items: center; padding: 17px 0; border-bottom: 1px solid #e1e7df; }
+.fila-reserva div:first-child { display: flex; flex-direction: column; gap: 5px; }
+.fila-reserva span { color: #78847c; font-size: 12px; }
+.acciones-reserva { display: flex; gap: 7px; }
+.acciones-reserva button { border: 0; border-radius: 7px; padding: 8px 10px; cursor: pointer; color: #fff; background: #4d8a43; font-size: 11px; font-weight: 700; }
+.acciones-reserva button:last-child { background: #a35454; }
+.texto-suave { color: #78847c; font-size: 13px; }
+footer { max-width: 1180px; margin: auto; padding: 0 32px 28px; color: #809589; font-size: 11px; }
+footer span { margin: 0 8px; color: #d4e849; }
+@media (max-width: 780px) {
+  .navegacion { padding: 0 20px; }
+  .hero { min-height: 340px; padding: 45px 20px 30px; }
+  .forma-decorativa { right: -130px; top: 80px; opacity: .45; }
+  h1 { letter-spacing: -3px; }
+  .contenido { padding: 0 20px 50px; display: block; }
+  .columna-resultado { padding-top: 25px; }
+}
+@media (max-width: 450px) {
+  .estado-conexion { display: none; }
+  .selector-vista { margin-left: 0; }
+  .estadisticas { gap: 18px; }
+  .estadisticas span { font-size: 10px; }
+  .formulario-reserva, .tarjeta-reserva, .estado-vacio { padding: 23px; }
+  .fila-formulario { display: block; }
+  .registro-cancha { display: block; }
+  .registro-cancha .boton-principal { margin-top: 10px; width: 100%; }
+  .fila-reserva { grid-template-columns: 1fr; gap: 10px; }
+}
