@@ -32,9 +32,22 @@ public class ControladorReservas {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void cancelar(@PathVariable UUID identificador) { fachada.cancelar(identificador); }
 
+    @DeleteMapping("/{identificador}/dueno/{idDueno}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelarComoDueno(@PathVariable UUID identificador, @PathVariable UUID idDueno) {
+        fachada.cancelar(identificador, idDueno);
+    }
+
     @GetMapping
     public java.util.List<RespuestaReservaDTO> listar() {
         return fachada.listar().stream()
+                .map(resultado -> RespuestaReservaDTO.desde(resultado.reserva(), resultado.precioTotal()))
+                .toList();
+    }
+
+    @GetMapping("/dueno/{idDueno}")
+    public java.util.List<RespuestaReservaDTO> listarPorDueno(@PathVariable UUID idDueno) {
+        return fachada.listar(idDueno).stream()
                 .map(resultado -> RespuestaReservaDTO.desde(resultado.reserva(), resultado.precioTotal()))
                 .toList();
     }
@@ -46,12 +59,18 @@ public class ControladorReservas {
                 .toList();
     }
 
-    @PatchMapping("/{identificador}/aceptar")
-    public RespuestaReservaDTO aceptar(@PathVariable UUID identificador) {
-        fachada.aceptar(identificador);
+    @GetMapping("/dueno/{idDueno}/canchas")
+    public java.util.List<RespuestaCanchaDTO> listarCanchasPorDueno(@PathVariable UUID idDueno) {
+        return fachada.listarCanchas(idDueno).stream()
+                .map(cancha -> new RespuestaCanchaDTO(cancha.identificador(), cancha.nombre(), cancha.tarifaPorHora()))
+                .toList();
+    }
+
+    @PatchMapping("/{identificador}/aceptar/{idDueno}")
+    public RespuestaReservaDTO aceptar(@PathVariable UUID identificador, @PathVariable UUID idDueno) {
+        fachada.aceptar(identificador, idDueno);
         var resultado = fachada.obtener(identificador);
         return RespuestaReservaDTO.desde(resultado.reserva(), resultado.precioTotal());
     }
 
 }
-

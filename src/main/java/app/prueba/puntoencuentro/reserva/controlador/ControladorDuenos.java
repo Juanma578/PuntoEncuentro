@@ -39,4 +39,3 @@ public class ControladorDuenos {
         return new RespuestaDuenoDTO(dueno.identificador(), dueno.nombre(), dueno.correo());
     }
 }
-

@@ -25,12 +25,16 @@ public class FachadaReservas {
         return new ResultadoReserva(reserva, servicio.precio(reserva));
     }
 
+    public void cancelar(UUID identificador, UUID idDueno) {
+        servicio.cancelar(identificador, idDueno);
+    }
+
     public void cancelar(UUID identificador) {
         servicio.cancelar(identificador);
     }
 
-    public void aceptar(UUID identificador) {
-        servicio.aceptar(identificador);
+    public void aceptar(UUID identificador, UUID idDueno) {
+        servicio.aceptar(identificador, idDueno);
     }
 
     public java.util.List<ResultadoReserva> listar() {
@@ -39,8 +43,18 @@ public class FachadaReservas {
                 .toList();
     }
 
+    public java.util.List<ResultadoReserva> listar(UUID idDueno) {
+        return servicio.listar(idDueno).stream()
+                .map(reserva -> new ResultadoReserva(reserva, servicio.precio(reserva)))
+                .toList();
+    }
+
     public java.util.List<Cancha> listarCanchas() {
         return servicio.listarCanchas();
+    }
+
+    public java.util.List<Cancha> listarCanchas(UUID idDueno) {
+        return servicio.listarCanchas(idDueno);
     }
 
     public Cancha registrarCancha(UUID idDueno, String nombre, BigDecimal tarifaPorHora) {

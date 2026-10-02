@@ -33,8 +33,11 @@ export async function obtenerReserva(identificador) {
   return interpretarRespuesta(respuesta);
 }
 
-export async function cancelarReserva(identificador) {
-  const respuesta = await fetch(`${rutaReservas}/${identificador}`, {
+export async function cancelarReserva(identificador, idDueno) {
+  const ruta = idDueno
+    ? `${rutaReservas}/${identificador}/dueno/${idDueno}`
+    : `${rutaReservas}/${identificador}`;
+  const respuesta = await fetch(ruta, {
     method: "DELETE"
   });
   return interpretarRespuesta(respuesta);
@@ -44,12 +47,20 @@ export async function listarReservas() {
   return interpretarRespuesta(await fetch(rutaReservas));
 }
 
+export async function listarReservasDueno(idDueno) {
+  return interpretarRespuesta(await fetch(`${rutaReservas}/dueno/${idDueno}`));
+}
+
 export async function listarCanchas() {
   return interpretarRespuesta(await fetch(`${rutaReservas}/canchas`));
 }
 
-export async function aceptarReserva(identificador) {
-  return interpretarRespuesta(await fetch(`${rutaReservas}/${identificador}/aceptar`, {
+export async function listarCanchasDueno(idDueno) {
+  return interpretarRespuesta(await fetch(`${rutaReservas}/dueno/${idDueno}/canchas`));
+}
+
+export async function aceptarReserva(identificador, idDueno) {
+  return interpretarRespuesta(await fetch(`${rutaReservas}/${identificador}/aceptar/${idDueno}`, {
     method: "PATCH"
   }));
 }

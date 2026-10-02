@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
-  aceptarReserva, cancelarReserva, iniciarSesionDueno, listarReservas,
-  listarCanchas, registrarCanchaDueno, registrarDueno
+  aceptarReserva, cancelarReserva, iniciarSesionDueno, listarReservasDueno,
+  listarCanchasDueno, registrarCanchaDueno, registrarDueno
 } from "../servicios/reservas.js";
 
 const registroInicial = { nombre: "", correo: "", contrasena: "" };
@@ -20,8 +20,8 @@ export default function PanelDueno() {
   async function cargarDatos() {
     try {
       const [reservasActuales, canchasActuales] = await Promise.all([
-        listarReservas(),
-        listarCanchas()
+        listarReservasDueno(dueno.identificador),
+        listarCanchasDueno(dueno.identificador)
       ]);
       establecerReservas(reservasActuales);
       establecerCanchas(canchasActuales);
@@ -60,8 +60,8 @@ export default function PanelDueno() {
 
   async function cambiarEstado(identificador, aceptar) {
     try {
-      if (aceptar) await aceptarReserva(identificador);
-      else await cancelarReserva(identificador);
+      if (aceptar) await aceptarReserva(identificador, dueno.identificador);
+      else await cancelarReserva(identificador, dueno.identificador);
       await cargarDatos();
     } catch (exception) { establecerError(exception.message); }
   }

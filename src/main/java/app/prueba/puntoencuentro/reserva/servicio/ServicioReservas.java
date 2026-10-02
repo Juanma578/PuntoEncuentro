@@ -31,7 +31,8 @@ public class ServicioReservas {
                                List<ObservadorReserva> observadores) {
         this.estrategiasPrecio = estrategiasPrecio;
         this.observadores = observadores;
-        canchas.put(1L, new Cancha(1, "Cancha Central", app.prueba.puntoencuentro.reserva.dominio.TipoCancha.FUTBOL_5,
+        canchas.put(1L, new Cancha(1, "Cancha Central",
+                app.prueba.puntoencuentro.reserva.dominio.TipoCancha.FUTBOL_5,
                 BigDecimal.valueOf(30000)));
     }
 
@@ -69,13 +70,33 @@ public class ServicioReservas {
         }
     }
 
-    public void aceptar(UUID identificador) {
+    public void cancelar(UUID identificador, UUID idDueno) {
         bloqueoReservas.lock();
         try {
-            exigirReserva(identificador).confirmar();
+            Reserva reserva = exigirReserva(identificador);
+            exigirDuenoDeCancha(reserva, idDueno);
+            reserva.cancelar();
         } finally {
             bloqueoReservas.unlock();
         }
+    }
+
+    public void aceptar(UUID identificador, UUID idDueno) {
+        bloqueoReservas.lock();
+        try {
+            Reserva reserva = exigirReserva(identificador);
+            exigirDuenoDeCancha(reserva, idDueno);
+            reserva.confirmar();
+        } finally {
+            bloqueoReservas.unlock();
+        }
+    }
+
+    public List<Reserva> listar(UUID idDueno) {
+        exigirDueno(idDueno);
+        return reservas.values().stream()
+                .filter(reserva -> idDueno.equals(canchas.get(reserva.idCancha()).idDueno()))
+                .toList();
     }
 
     public List<Reserva> listar() {
@@ -84,6 +105,13 @@ public class ServicioReservas {
 
     public List<Cancha> listarCanchas() {
         return List.copyOf(canchas.values());
+    }
+
+    public List<Cancha> listarCanchas(UUID idDueno) {
+        exigirDueno(idDueno);
+        return canchas.values().stream()
+                .filter(cancha -> idDueno.equals(cancha.idDueno()))
+                .toList();
     }
 
     public Cancha registrarCancha(UUID idDueno, String nombre, BigDecimal tarifaPorHora) {
@@ -97,7 +125,7 @@ public class ServicioReservas {
         long identificador = siguienteCancha.getAndIncrement();
         Cancha cancha = new Cancha(identificador, nombre.trim(),
                 app.prueba.puntoencuentro.reserva.dominio.TipoCancha.FUTBOL_5,
-                tarifaPorHora);
+                tarifaPorHora, idDueno);
         canchas.put(identificador, cancha);
         return cancha;
     }
@@ -169,5 +197,13 @@ public class ServicioReservas {
         Reserva reserva = reservas.get(identificador);
         if (reserva == null) throw new IllegalArgumentException("Reserva inexistente: " + identificador);
         return reserva;
+    }
+
+    private void exigirDuenoDeCancha(Reserva reserva, UUID idDueno) {
+        exigirDueno(idDueno);
+        Cancha cancha = exigirCancha(reserva.idCancha());
+        if (!idDueno.equals(cancha.idDueno())) {
+            throw new IllegalArgumentException("El dueño no administra la cancha de esta reserva");
+        }
     }
 }
